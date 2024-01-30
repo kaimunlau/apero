@@ -6,12 +6,8 @@ const Apero = () => {
     minute: '2-digit',
   })
 
-  return (
-    <div className='flex flex-col items-center gap-4'>
-      <div>
-        <h2>{time}</h2>
-        <h1>C'est l'heure de l'apero !</h1>
-      </div>
+  const Recipes = () => {
+    return (
       <div className='flex flex-col w-3/4 gap-4'>
         <div>
           <h3>Au menu...</h3>
@@ -22,6 +18,16 @@ const Apero = () => {
           <Recipe />
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div className='flex flex-col items-center gap-4'>
+      <div>
+        <h2>{time}</h2>
+        <h1>C'est l'heure de l'apero !</h1>
+      </div>
+      <Recipes />
     </div>
   )
 }
