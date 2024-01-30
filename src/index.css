@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Josefin+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Josefin+Sans:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,11 +7,31 @@
 html, body, #root {
   min-height: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: var(--background-50);
+}
+
+h1 {
+  @apply text-3xl font-bold tracking-wider text-center font-heading;
+}
+
+h2 {
+  @apply text-2xl font-bold tracking-wide text-center font-heading;
+}
+
+h3 {
+  @apply text-xl font-semibold tracking-wide text-center font-heading;
+}
+
+h4 {
+  @apply text-lg font-semibold tracking-wide text-center font-body;
+}
+
+h5 {
+  @apply font-semibold tracking-wide text-center font-body;
+}
+
+ol {
+  @apply list-decimal list-inside;
 }
 
 @layer base {
