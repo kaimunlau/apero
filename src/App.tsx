@@ -1,9 +1,10 @@
 import './App.css'
+import MainButton from './components/MainButton'
 
 function App() {
   return (
     <>
-      <button>C'est l'heure de l'apero ?</button>
+      <MainButton />
     </>
   )
 }
