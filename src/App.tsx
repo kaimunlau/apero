@@ -12,7 +12,7 @@ function App() {
   }
 
   return (
-    <div className='container'>
+    <div className='container mx-auto'>
       {isAperoTime && <Apero />}
       <div
         className={twMerge(

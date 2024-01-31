@@ -1,3 +1,4 @@
+import Confetti from './Confetti'
 import Recipe from './Recipe'
 
 const Apero = () => {
@@ -23,6 +24,7 @@ const Apero = () => {
 
   return (
     <div className='flex flex-col items-center gap-4 my-10'>
+      <Confetti />
       <div>
         <h2>{time}</h2>
         <h1>C'est l'heure de l'apero !</h1>
