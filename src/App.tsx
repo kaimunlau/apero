@@ -12,7 +12,7 @@ function App() {
   }
 
   return (
-    <div className='container my-10'>
+    <div className='container'>
       {isAperoTime && <Apero />}
       <div
         className={twMerge(
@@ -23,7 +23,12 @@ function App() {
         {!isAperoTime && isAperoTime !== null && (
           <h3>Ce n'est pas encore l'heure de l'apero :(</h3>
         )}
-        {!isAperoTime && <MainButton setIsAperoTime={setIsAperoTime} />}
+        {!isAperoTime && (
+          <MainButton
+            isAperoTime={isAperoTime}
+            setIsAperoTime={setIsAperoTime}
+          />
+        )}
       </div>
     </div>
   )
