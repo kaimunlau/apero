@@ -20,6 +20,15 @@ const Recipe = ({ drink, nonAlcoholic = false }: RecipeProps) => {
   }, [drink])
 
   const Drink = () => {
+    const ingredientsWithMeasures = Object.entries(
+      drink?.ingredients || {}
+    ).map(([key, value]: [string, string]) => {
+      return {
+        name: value,
+        measure: drink?.measures[key as keyof typeof drink.measures],
+      }
+    })
+
     return (
       <>
         <h4>{drink?.name}</h4>
@@ -27,17 +36,22 @@ const Recipe = ({ drink, nonAlcoholic = false }: RecipeProps) => {
         <div className='w-3/4'>
           <h5>Ingrédients</h5>
           <ul>
-            <li>Ingredient 1</li>
-            <li>Ingredient 2</li>
-            <li>Ingredient 3</li>
+            {ingredientsWithMeasures.map((ingredient, index) => {
+              return (
+                <li key={index}>
+                  {String(ingredient.measure)} {ingredient.name}
+                </li>
+              )
+            })}
           </ul>
         </div>
         <div className='w-3/4'>
           <h5>Etapes</h5>
           <ol>
-            <li>Etape 1</li>
-            <li>Etape 2</li>
-            <li>Etape 3</li>
+            {drink?.steps.map((step, index) => {
+              if (step === '') return null
+              return <li key={index}>{step}</li>
+            })}
           </ol>
         </div>
       </>

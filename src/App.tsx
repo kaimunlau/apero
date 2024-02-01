@@ -38,7 +38,6 @@ function App() {
       const fetchAndSetDrink = async (alcoholic: boolean) => {
         const baseUrl = '/api/json/v1/1/random.php?a='
         const url = baseUrl + (alcoholic ? 'Alcoholic' : 'Non_Alcoholic')
-        console.log(url)
 
         const data = await fetch(url, {
           method: 'GET',
@@ -47,8 +46,6 @@ function App() {
           },
         })
         const fetchedDrink = await data.json()
-
-        console.log(fetchedDrink)
 
         const drink = buildDrinkObject(fetchedDrink)
 
