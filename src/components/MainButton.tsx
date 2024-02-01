@@ -9,7 +9,7 @@ const MainButton: React.FC<MainButtonProps> = ({
 }) => {
   const changeIsAperoTime = () => {
     const itsTimeToDrink = () => {
-      const startHour = 17
+      const startHour = 10
       const endHourNextDay = 2
       return (
         new Date().getHours() >= startHour ||
