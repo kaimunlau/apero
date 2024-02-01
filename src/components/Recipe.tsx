@@ -23,9 +23,10 @@ const Recipe = ({ drink, nonAlcoholic = false }: RecipeProps) => {
     const ingredientsWithMeasures = Object.entries(
       drink?.ingredients || {}
     ).map(([key, value]: [string, string]) => {
+      const measure = drink?.measures[key as keyof typeof drink.measures] || ''
       return {
         name: value,
-        measure: drink?.measures[key as keyof typeof drink.measures],
+        measure: measure,
       }
     })
 
