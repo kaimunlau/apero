@@ -32,8 +32,14 @@ const Recipe = ({ drink, nonAlcoholic = false }: RecipeProps) => {
     return (
       <>
         <h4>{drink?.name}</h4>
-        <div className='w-3/4 h-20 mx-auto bg-gray-400 rounded-xl'></div>
-        <div className='w-3/4'>
+        <div className='w-3/4 h-40 mx-auto md:h-80 md:w-1/2 rounded-xl'>
+          <img
+            className='object-cover w-full h-full rounded-xl'
+            src={drink?.imgUrl}
+            alt={drink?.name}
+          />
+        </div>
+        <div className='w-3/4 md:w-1/2'>
           <h5>Ingrédients</h5>
           <ul>
             {ingredientsWithMeasures.map((ingredient, index) => {
@@ -45,7 +51,7 @@ const Recipe = ({ drink, nonAlcoholic = false }: RecipeProps) => {
             })}
           </ul>
         </div>
-        <div className='w-3/4'>
+        <div className='w-3/4 md:w-1/2'>
           <h5>Etapes</h5>
           <ol>
             {drink?.steps.map((step, index) => {
