@@ -30,17 +30,21 @@ const Recipe = ({ drink, nonAlcoholic = false }: RecipeProps) => {
       }
     })
 
+    const recipeWidth = 'w-3/4 md:w-2/3'
+
     return (
       <>
         <h4>{drink?.name}</h4>
-        <div className='w-3/4 h-40 mx-auto md:h-80 md:w-1/2 rounded-xl'>
+        <div
+          className={twMerge('h-40 mx-auto md:h-80 rounded-xl', recipeWidth)}
+        >
           <img
             className='object-cover w-full h-full rounded-xl'
             src={drink?.imgUrl}
             alt={drink?.name}
           />
         </div>
-        <div className='w-3/4 md:w-1/2'>
+        <div className={twMerge(recipeWidth)}>
           <h5>Ingrédients</h5>
           <ul>
             {ingredientsWithMeasures.map((ingredient, index) => {
@@ -52,7 +56,7 @@ const Recipe = ({ drink, nonAlcoholic = false }: RecipeProps) => {
             })}
           </ul>
         </div>
-        <div className='w-3/4 md:w-1/2'>
+        <div className={twMerge(recipeWidth)}>
           <h5>Etapes</h5>
           <ol>
             {drink?.steps.map((step, index) => {
@@ -68,7 +72,7 @@ const Recipe = ({ drink, nonAlcoholic = false }: RecipeProps) => {
   return (
     <div
       className={twMerge(
-        'flex flex-col items-center gap-4 p-4 rounded-xl text-text-50',
+        'flex flex-col items-center gap-4 p-4 rounded-xl text-text-50 w-full',
         nonAlcoholic ? 'bg-accent-400 ' : 'bg-accent-700'
       )}
     >
