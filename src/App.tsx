@@ -105,7 +105,7 @@ function App() {
   }
 
   return (
-    <div className='container px-2 mx-auto'>
+    <div className='container px-1 mx-auto md:px-2'>
       {isAperoTime && (
         <Apero
           alcoholicDrink={alcoholicDrink}

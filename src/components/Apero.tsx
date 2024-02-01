@@ -16,7 +16,7 @@ const Apero = ({ alcoholicDrink, nonAlcoholicDrink }: AperoProps) => {
 
   const Recipes = () => {
     return (
-      <div className='flex flex-col w-3/4 gap-4'>
+      <div className='flex flex-col w-3/4 gap-4 md:grid md:grid-cols-2 md:gap-8'>
         <div>
           <h3>Au menu...</h3>
           <Recipe drink={alcoholicDrink} />
