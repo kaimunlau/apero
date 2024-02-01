@@ -72,7 +72,7 @@ const Recipe = ({ drink, nonAlcoholic = false }: RecipeProps) => {
   return (
     <div
       className={twMerge(
-        'flex flex-col items-center gap-4 p-4 rounded-xl text-text-50 w-full',
+        'flex flex-col items-center gap-4 p-4 rounded-xl text-text-50 w-full md:h-full',
         nonAlcoholic ? 'bg-accent-400 ' : 'bg-accent-700'
       )}
     >
