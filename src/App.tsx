@@ -6,28 +6,6 @@ import { twMerge } from 'tailwind-merge'
 
 import { ApiDrinkResponse, Drink } from './types/types'
 
-const buildDrinkObject = (drink: ApiDrinkResponse) => {
-  return {
-    id: drink.drinks[0].idDrink,
-    name: drink.drinks[0].strDrink,
-    glass: drink.drinks[0].strGlass,
-    ingredients: (
-      Object.keys(drink.drinks[0]) as Array<keyof (typeof drink.drinks)[0]>
-    )
-      .filter((key) => key.includes('strIngredient'))
-      .map((key) => drink.drinks[0][key] as string)
-      .filter((ingredient) => ingredient !== null),
-    measures: (
-      Object.keys(drink.drinks[0]) as Array<keyof (typeof drink.drinks)[0]>
-    )
-      .filter((key) => key.includes('strMeasure'))
-      .map((key) => drink.drinks[0][key] as string)
-      .filter((measure) => measure !== null),
-    steps: drink.drinks[0].strInstructions.split('.'),
-    imgUrl: drink.drinks[0].strDrinkThumb,
-  }
-}
-
 function App() {
   const [isAperoTime, setIsAperoTime] = useState<boolean | null>(null)
   const [alcoholicDrink, setAlcoholicDrink] = useState<Drink | null>(null)
@@ -35,24 +13,83 @@ function App() {
 
   useEffect(() => {
     if (isAperoTime) {
-      const fetchAndSetDrink = async (alcoholic: boolean) => {
-        const baseUrl = '/api/json/v1/1/random.php?a='
+      const buildDrinkObject = (drink: ApiDrinkResponse) => {
+        return {
+          id: drink.drinks[0].idDrink,
+          name: drink.drinks[0].strDrink,
+          glass: drink.drinks[0].strGlass,
+          ingredients: (
+            Object.keys(drink.drinks[0]) as Array<
+              keyof (typeof drink.drinks)[0]
+            >
+          )
+            .filter((key) => key.includes('strIngredient'))
+            .map((key) => drink.drinks[0][key] as string)
+            .filter((ingredient) => ingredient !== null),
+          measures: (
+            Object.keys(drink.drinks[0]) as Array<
+              keyof (typeof drink.drinks)[0]
+            >
+          )
+            .filter((key) => key.includes('strMeasure'))
+            .map((key) => drink.drinks[0][key] as string)
+            .filter((measure) => measure !== null),
+          steps: drink.drinks[0].strInstructions.split('.'),
+          imgUrl: drink.drinks[0].strDrinkThumb,
+        }
+      }
+
+      const fetchDrinksByType = async (alcoholic: boolean) => {
+        const baseUrl = '/api/json/v1/1/filter.php?a='
         const url = baseUrl + (alcoholic ? 'Alcoholic' : 'Non_Alcoholic')
 
-        const data = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        const fetchedDrink = await data.json()
+        try {
+          const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
 
-        const drink = buildDrinkObject(fetchedDrink)
+          const drinksData = await response.json()
+          return drinksData.drinks
+        } catch (error) {
+          console.error('Error fetching drinks:', error)
+          return []
+        }
+      }
 
-        if (alcoholic) {
-          setAlcoholicDrink(drink)
-        } else {
-          setNonAlcoholicDrink(drink)
+      const fetchRandomDrinkById = async (id: string) => {
+        try {
+          const response = await fetch(`/api/json/v1/1/lookup.php?i=${id}`)
+          return await response.json()
+        } catch (error) {
+          console.error('Error fetching random drink:', error)
+          return null
+        }
+      }
+
+      const fetchAndSetDrink = async (alcoholic: boolean) => {
+        try {
+          const drinks = await fetchDrinksByType(alcoholic)
+
+          if (drinks.length > 0) {
+            const randomDrinkIndex = Math.floor(Math.random() * drinks.length)
+            const randomDrinkId = drinks[randomDrinkIndex].idDrink
+            const randomDrinkData = await fetchRandomDrinkById(randomDrinkId)
+
+            if (randomDrinkData) {
+              const drink = buildDrinkObject(randomDrinkData)
+
+              if (alcoholic) {
+                setAlcoholicDrink(drink)
+              } else {
+                setNonAlcoholicDrink(drink)
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching and setting drink:', error)
         }
       }
 
