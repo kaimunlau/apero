@@ -38,7 +38,7 @@ function App() {
     const baseUrl = '/api/json/v1/1/filter.php?a='
     let url = baseUrl + (alcoholic ? 'Alcoholic' : 'Non_Alcoholic')
     if (import.meta.env.PROD) {
-      url = 'https://www.thecocktaildb.com' + url
+      url = 'https://crossorigin.me/https://www.thecocktaildb.com' + url
     }
 
     try {
