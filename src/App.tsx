@@ -36,7 +36,10 @@ function App() {
 
   const fetchDrinksByType = async (alcoholic: boolean) => {
     const baseUrl = '/api/json/v1/1/filter.php?a='
-    const url = baseUrl + (alcoholic ? 'Alcoholic' : 'Non_Alcoholic')
+    let url = baseUrl + (alcoholic ? 'Alcoholic' : 'Non_Alcoholic')
+    if (import.meta.env.PROD) {
+      url = 'https://www.thecocktaildb.com' + url
+    }
 
     try {
       const response = await fetch(url, {
