@@ -9,5 +9,5 @@ export default defineConfig({
     }
   } ,
   plugins: [react()],
-  base: '/apero/'
+  base: '/apero'
 })
